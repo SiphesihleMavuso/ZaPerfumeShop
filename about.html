@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - My Perfume Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Header -->
+  <header class="shadow-md sticky top-0 bg-white z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold text-pink-600">My Perfume Shop</h1>
+      <nav class="flex space-x-6 items-center">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html" class="text-pink-600 font-bold">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="relative">🛒 <span id="cart-count" class="absolute -top-2 -right-3 bg-pink-600 text-white text-xs px-1 rounded-full">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section class="max-w-4xl mx-auto py-16 px-4 text-center">
+    <h2 class="text-4xl font-bold mb-6">About Us</h2>
+    <p class="text-lg leading-relaxed mb-6">
+      Welcome to <span class="font-semibold">My Perfume Shop</span>, your trusted destination for authentic fragrances in South Africa. 
+      We are passionate about scents and believe that the right fragrance can transform your confidence, mood, and presence.
+    </p>
+    <p class="text-lg leading-relaxed mb-6">
+      Our mission is simple: to provide our customers with 100% genuine perfumes at the best possible prices. 
+      Whether you're searching for timeless classics or modern signature scents, we source our collection directly from trusted suppliers.
+    </p>
+    <p class="text-lg leading-relaxed mb-6">
+      Every fragrance we sell is guaranteed authentic, and our customer-first approach ensures a smooth, enjoyable shopping experience.
+      Thank you for letting us be part of your fragrance journey.
+    </p>
+    <a href="shop.html" class="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700">Shop Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-200 py-6 text-center">
+    <p>&copy; 2025 My Perfume Shop | All Rights Reserved</p>
+  </footer>
+
+  <!-- Cart Script -->
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function updateCartCount() {
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+    updateCartCount();
+  </script>
+</body>
+</html>

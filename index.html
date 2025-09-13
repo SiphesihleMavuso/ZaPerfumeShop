@@ -1,0 +1,226 @@
+<!-- ========================= index.html ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Perfume Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+
+<!-- Header / Navbar -->
+<header class="shadow-md sticky top-0 bg-white z-50">
+  <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+    <h1 class="text-2xl font-bold text-pink-600">My Perfume Shop</h1>
+    <nav class="flex space-x-6 items-center">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="relative">🛒 
+        <span id="cart-count" class="absolute -top-2 -right-3 bg-pink-600 text-white text-xs px-1 rounded-full">0</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Hero Section -->
+  <section class="bg-pink-100 py-20 text-center">
+    <h2 class="text-4xl font-bold mb-4">Discover Your Signature Scent</h2>
+    <p class="mb-6">Authentic fragrances at unbeatable prices</p>
+    <a href="shop.html" class="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700">Shop Now</a>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="max-w-6xl mx-auto py-16 px-4">
+    <h3 class="text-2xl font-bold mb-8 text-center">Best Sellers</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume1.jpg" alt="Perfume 1" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Dior Sauvage</h4>
+        <p class="text-pink-600 font-bold">R 1,250</p>
+      </div>
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume2.jpg" alt="Perfume 2" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Chanel No. 5</h4>
+        <p class="text-pink-600 font-bold">R 1,800</p>
+      </div>
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume3.jpg" alt="Perfume 3" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Versace Eros</h4>
+        <p class="text-pink-600 font-bold">R 1,400</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+
+<section class="max-w-6xl mx-auto py-16 px-4">
+  <h2 class="text-3xl font-bold mb-8 text-center">Our Collection</h2>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+    <!-- Dior Sauvage -->
+    <div class="bg-white rounded-2xl shadow p-4">
+      <img src="assets/images/perfume1.jpg" class="w-full h-64 object-cover rounded-xl">
+      <h2 class="text-xl font-bold mt-4">Dior Sauvage</h2>
+      <p class="text-gray-600">Fresh, bold, timeless fragrance for men.</p>
+      <p class="text-pink-600 font-bold mt-2">R 1,250</p>
+      <div class="mt-4 flex justify-between">
+        <button onclick="openModal('dior')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+          View
+        </button>
+      </div>
+    </div>
+
+    <!-- Chanel No. 5 -->
+    <div class="bg-white rounded-2xl shadow p-4">
+      <img src="assets/images/perfume2.jpg" class="w-full h-64 object-cover rounded-xl">
+      <h2 class="text-xl font-bold mt-4">Chanel No. 5</h2>
+      <p class="text-gray-600">Iconic, elegant floral fragrance.</p>
+      <p class="text-pink-600 font-bold mt-2">R 1,800</p>
+      <div class="mt-4 flex justify-between">
+        <button onclick="openModal('chanel')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+          View
+        </button>
+      </div>
+    </div>
+
+    <!-- Versace Eros -->
+    <div class="bg-white rounded-2xl shadow p-4">
+      <img src="assets/images/perfume3.jpg" class="w-full h-64 object-cover rounded-xl">
+      <h2 class="text-xl font-bold mt-4">Versace Eros</h2>
+      <p class="text-gray-600">Vibrant, passionate masculine scent.</p>
+      <p class="text-pink-600 font-bold mt-2">R 1,400</p>
+      <div class="mt-4 flex justify-between">
+        <button onclick="openModal('versace')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+          View
+        </button>
+      </div>
+    </div>
+
+    <!-- Gucci Bloom -->
+    <div class="bg-white rounded-2xl shadow p-4">
+      <img src="assets/images/perfume4.jpg" class="w-full h-64 object-cover rounded-xl">
+      <h2 class="text-xl font-bold mt-4">Gucci Bloom</h2>
+      <p class="text-gray-600">Rich white floral notes for women.</p>
+      <p class="text-pink-600 font-bold mt-2">R 1,600</p>
+      <div class="mt-4 flex justify-between">
+        <button onclick="openModal('gucci')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+          View
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--Modals-->
+<!-- Dior Modal -->
+<div id="modal-dior" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-2xl max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
+    <button onclick="closeModal('dior')" 
+      class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold z-50">✕</button>
+    <h2 class="text-2xl font-bold mb-4">Dior Sauvage</h2>
+    <img src="assets/images/perfume1.jpg" class="w-full max-h-80 object-contain rounded mb-4">
+    <p class="mb-4">Fresh, bold, and timeless fragrance for men. Notes of bergamot, pepper, and ambroxan for a powerful, confident scent.</p>
+    <p class="text-pink-600 font-bold text-xl mb-6">R 1,250</p>
+  </div>
+</div>
+
+<!-- Chanel Modal -->
+<div id="modal-chanel" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-2xl max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
+    <button onclick="closeModal('chanel')" 
+      class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold z-50">✕</button>
+    <h2 class="text-2xl font-bold mb-4">Chanel No. 5</h2>
+    <img src="assets/images/perfume2.jpg" class="w-full max-h-80 object-contain rounded mb-4">
+    <p class="mb-4">An iconic fragrance blending jasmine, rose, sandalwood, and vanilla. A timeless choice for elegance and sophistication.</p>
+    <p class="text-pink-600 font-bold text-xl mb-6">R 1,800</p>
+  </div>
+</div>
+
+<!-- Versace Modal -->
+<div id="modal-versace" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-2xl max-w-lg w-full relative">
+    <button onclick="closeModal('versace')" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">✕</button>
+    <h2 class="text-2xl font-bold mb-4">Versace Eros</h2>
+    <img src="assets/images/perfume3.jpg" class="w-full rounded mb-4">
+    <p class="mb-4">A vibrant fragrance with mint, green apple, and vanilla notes. Perfect for men with passion and strength.</p>
+    <p class="text-pink-600 font-bold text-xl mb-6">R 1,400</p>
+  </div>
+</div>
+
+<!-- Gucci Modal -->
+<div id="modal-gucci" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-2xl max-w-lg w-full relative">
+    <button onclick="closeModal('gucci')" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">✕</button>
+    <h2 class="text-2xl font-bold mb-4">Gucci Bloom</h2>
+    <img src="assets/images/perfume4.jpg" class="w-full rounded mb-4">
+    <p class="mb-4">A floral fragrance with jasmine, tuberose, and Rangoon creeper. Captures the essence of a thriving garden in full bloom.</p>
+    <p class="text-pink-600 font-bold text-xl mb-6">R 1,600</p>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  document.getElementById("modal-" + id).style.display = "flex";
+}
+function closeModal(id) {
+  document.getElementById("modal-" + id).style.display = "none";
+}
+</script>
+
+</body>
+</html>
+
+
+  <section class="max-w-6xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-8">
+    <div>
+      <img src="assets/images/perfume1.jpg" alt="Perfume" class="w-full rounded shadow">
+    </div>
+    <div>
+      <h2 class="text-3xl font-bold mb-4">Dior Sauvage</h2>
+      <p class="mb-4">Fresh, bold, and timeless fragrance for men. Authentic and long-lasting.</p>
+      <p class="text-pink-600 font-bold text-xl mb-6">R 1,250</p>
+  </section>
+</body>
+</html>
+
+  <section class="max-w-4xl mx-auto py-16 px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">About Us</h2>
+    <p class="mb-4">Founded in 2025, My Perfume Shop is dedicated to delivering genuine designer and niche fragrances across South Africa. Our mission is to make luxury scents affordable and accessible to all.</p>
+    <p class="mb-4">Every perfume in our collection is sourced directly from trusted suppliers, ensuring 100% authenticity. Whether you’re looking for timeless classics or modern favorites, we’ve got something for everyone.</p>
+    <p>Thank you for choosing us for your fragrance journey.</p>
+  </section>
+</body>
+</html>
+
+  <section class="max-w-4xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold mb-6 text-center">Get in Touch</h2>
+    <form class="space-y-4">
+      <div>
+        <label class="block mb-1 font-semibold">Name</label>
+        <input type="text" class="w-full border p-2 rounded" placeholder="Your Name">
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Email</label>
+        <input type="email" class="w-full border p-2 rounded" placeholder="you@example.com">
+      </div>
+      <div>
+        <label class="block mb-1 font-semibold">Message</label>
+        <textarea class="w-full border p-2 rounded" rows="5" placeholder="Your message..."></textarea>
+      </div>
+      <button class="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700">Send</button>
+    </form>
+  </section>
+  
+    <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-200 py-6 text-center">
+    <p>&copy; 2025 My Perfume Shop | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

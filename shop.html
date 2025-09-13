@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - My Perfume Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Header -->
+  <header class="shadow-md sticky top-0 bg-white z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold text-pink-600">My Perfume Shop</h1>
+      <nav class="flex space-x-6 items-center">
+        <a href="index.html" class="hover:text-pink-600">Home</a>
+        <a href="shop.html" class="text-pink-600 font-bold">Shop</a>
+        <a href="about.html" class="hover:text-pink-600">About</a>
+        <a href="contact.html" class="hover:text-pink-600">Contact</a>
+        <a href="cart.html" class="relative hover:text-pink-600">
+          🛒 
+          <span id="cart-count" 
+            class="absolute -top-2 -right-3 bg-pink-600 text-white text-xs px-1 rounded-full">
+            0
+          </span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Shop Section -->
+  <section class="max-w-6xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold mb-8 text-center">Our Collection</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+      <!-- Product Card -->
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume1.jpg" alt="Dior Sauvage" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Dior Sauvage</h4>
+        <p class="text-pink-600 font-bold">R 1,250</p>
+        <button 
+          onclick="addToCart('Dior Sauvage', 1250)" 
+          class="mt-2 bg-pink-600 text-white w-full py-2 rounded hover:bg-pink-700">
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume2.jpg" alt="Chanel No. 5" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Chanel No. 5</h4>
+        <p class="text-pink-600 font-bold">R 1,800</p>
+        <button 
+          onclick="addToCart('Chanel No. 5', 1800)" 
+          class="mt-2 bg-pink-600 text-white w-full py-2 rounded hover:bg-pink-700">
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume3.jpg" alt="Versace Eros" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Versace Eros</h4>
+        <p class="text-pink-600 font-bold">R 1,400</p>
+        <button 
+          onclick="addToCart('Versace Eros', 1400)" 
+          class="mt-2 bg-pink-600 text-white w-full py-2 rounded hover:bg-pink-700">
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="border rounded-lg p-4 shadow hover:shadow-lg transition">
+        <img src="assets/images/perfume4.jpg" alt="Gucci Bloom" class="w-full h-64 object-cover rounded">
+        <h4 class="mt-4 font-semibold">Gucci Bloom</h4>
+        <p class="text-pink-600 font-bold">R 1,650</p>
+        <button 
+          onclick="addToCart('Gucci Bloom', 1650)" 
+          class="mt-2 bg-pink-600 text-white w-full py-2 rounded hover:bg-pink-700">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-200 py-6 text-center">
+    <p>&copy; 2025 My Perfume Shop | All Rights Reserved</p>
+  </footer>
+
+  <!-- Cart Script -->
+  <script>
+    // Initialize cart from localStorage or empty
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${name} added to cart!`);
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+  
+    updateCartCount();
+  </script>
+</body>
+</html>
