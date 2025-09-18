@@ -1,90 +1,173 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Za Perfume Shop</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card-number-field {
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #ec4899;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
   <!-- Header / Navbar -->
   <header class="shadow-md sticky top-0 bg-white z-50">
     <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
       <h1 class="text-2xl font-bold text-pink-600">Za Perfume Shop</h1>
       <nav class="flex space-x-6 items-center">
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="cart.html" class="relative">🛒 
+        <a href="index.html" class="hover:text-pink-600 transition">Home</a>
+        <a href="shop.html" class="hover:text-pink-600 transition">Shop</a>
+        <a href="about.html" class="hover:text-pink-600 transition">About</a>
+        <a href="contact.html" class="hover:text-pink-600 transition">Contact</a>
+        <a href="cart.html" class="relative hover:text-pink-600 transition">🛒 
           <span id="cart-count" class="absolute -top-2 -right-3 bg-pink-600 text-white text-xs px-1 rounded-full">0</span>
         </a>
       </nav>
     </div>
   </header>
 
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Processing your order...</p>
+  </div>
+
   <!-- Checkout Form Section -->
   <section class="max-w-4xl mx-auto py-16 px-4">
     <h2 class="text-4xl font-bold mb-6 text-center">Checkout</h2>
     <p class="text-lg text-center mb-10">Please fill in your delivery and payment information to complete your order.</p>
 
-    <form class="space-y-6 bg-gray-100 p-8 rounded-lg shadow-md" action="#" method="POST">
+    <form id="checkout-form" class="space-y-6 bg-white p-8 rounded-lg shadow-md" action="order-confirmation.html" method="POST">
       <!-- Delivery Info -->
-      <h3 class="text-2xl font-semibold mb-4">Delivery Information</h3>
-      <div>
-        <label class="block font-semibold mb-2" for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="fullName" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
+      <h3 class="text-2xl font-semibold mb-4 border-b pb-2">Delivery Information</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block font-semibold mb-2" for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
+        </div>
+        <div>
+          <label class="block font-semibold mb-2" for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
+        </div>
       </div>
+      
       <div>
-        <label class="block font-semibold mb-2" for="address">Address</label>
-        <input type="text" id="address" name="address" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
+        <label class="block font-semibold mb-2" for="address">Delivery Address *</label>
+        <input type="text" id="address" name="address" required 
+               class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
       </div>
-      <div>
-        <label class="block font-semibold mb-2" for="city">City</label>
-        <input type="text" id="city" name="city" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
-      </div>
-      <div>
-        <label class="block font-semibold mb-2" for="postal">Postal Code</label>
-        <input type="text" id="postal" name="postal" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
-      </div>
-      <div>
-        <label class="block font-semibold mb-2" for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block font-semibold mb-2" for="city">City *</label>
+          <input type="text" id="city" name="city" required 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
+        </div>
+        <div>
+          <label class="block font-semibold mb-2" for="postal">Postal Code *</label>
+          <input type="text" id="postal" name="postal" required 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
+        </div>
+        <div>
+          <label class="block font-semibold mb-2" for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
+        </div>
       </div>
 
       <!-- Payment Info -->
-      <h3 class="text-2xl font-semibold mb-4">Payment Information</h3>
+      <h3 class="text-2xl font-semibold mb-4 border-b pb-2">Payment Information</h3>
       <div>
-        <label class="block font-semibold mb-2" for="cardName">Cardholder Name</label>
-        <input type="text" id="cardName" name="cardName" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
+        <label class="block font-semibold mb-2" for="cardName">Cardholder Name *</label>
+        <input type="text" id="cardName" name="cardName" required 
+               class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition">
       </div>
       <div>
-        <label class="block font-semibold mb-2" for="cardNumber">Card Number</label>
-        <input type="text" id="cardNumber" name="cardNumber" required maxlength="19" placeholder="xxxx xxxx xxxx xxxx" 
-          class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500">
+        <label class="block font-semibold mb-2" for="cardNumber">Card Number *</label>
+        <input type="text" id="cardNumber" name="cardNumber" required maxlength="19" 
+               placeholder="xxxx xxxx xxxx xxxx" 
+               class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition card-number-field">
       </div>
-      <div class="flex gap-4">
-        <div class="flex-1">
-          <label class="block font-semibold mb-2" for="expiry">Expiry Date</label>
-          <input type="text" id="expiry" name="expiry" required class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500" placeholder="MM/YY">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block font-semibold mb-2" for="expiry">Expiry Date *</label>
+          <input type="text" id="expiry" name="expiry" required 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition" 
+                 placeholder="MM/YY">
         </div>
-        <div class="flex-1">
-          <label class="block font-semibold mb-2" for="cvv">CVV</label>
-          <input type="password" id="cvv" name="cvv" required maxlength="4" class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500" placeholder="***">
+        <div>
+          <label class="block font-semibold mb-2" for="cvv">CVV *</label>
+          <input type="password" id="cvv" name="cvv" required maxlength="4" 
+                 class="w-full border rounded px-4 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition" 
+                 placeholder="***">
+        </div>
+        <div class="flex items-end">
+          <div class="flex items-center text-sm text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            Secure payment
+          </div>
         </div>
       </div>
 
-      <button type="submit" class="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700 w-full font-semibold transition">Place Order</button>
+      <div class="pt-4 border-t mt-8">
+        <button type="submit" class="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700 w-full font-semibold transition transform hover:scale-[1.01]">
+          Place Order
+        </button>
+      </div>
     </form>
   </section>
 
   <!-- Cart Summary -->
-  <section class="max-w-4xl mx-auto py-8 px-4">
-    <h3 class="text-2xl font-semibold mb-4">Your Cart</h3>
+  <section class="max-w-4xl mx-auto py-8 px-4 mb-12">
+    <h3 class="text-2xl font-semibold mb-4 border-b pb-2">Your Order</h3>
     <div id="cart-items" class="space-y-4"></div>
-    <div id="cart-summary" class="mt-4 p-4 bg-pink-50 rounded-lg text-center text-lg font-semibold shadow">
-      Total Items: <span id="total-items">0</span> | Total Price: <span id="total-price">R0.00</span>
+    <div id="cart-summary" class="mt-6 p-6 bg-pink-50 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-2">
+        <span>Subtotal:</span>
+        <span id="subtotal-price">R0.00</span>
+      </div>
+      <div class="flex justify-between items-center mb-2 text-sm text-gray-600">
+        <span>Shipping:</span>
+        <span id="shipping-price">R50.00</span>
+      </div>
+      <div class="flex justify-between items-center font-bold text-lg border-t pt-2 mt-2">
+        <span>Total:</span>
+        <span id="total-price">R0.00</span>
+      </div>
     </div>
   </section>
 
@@ -93,29 +176,54 @@
     <p>&copy; 2025 Za Perfume Shop | All Rights Reserved</p>
   </footer>
 
-  <!-- Cart Script & Card Masking -->
+  <!-- Cart Script & Form Handling -->
   <script>
+    // Initialize cart
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const cartItemsContainer = document.getElementById("cart-items");
-    const totalItemsEl = document.getElementById("total-items");
+    const subtotalPriceEl = document.getElementById("subtotal-price");
     const totalPriceEl = document.getElementById("total-price");
     const cartCountEl = document.getElementById("cart-count");
+    const checkoutForm = document.getElementById("checkout-form");
+    const loadingOverlay = document.getElementById("loading-overlay");
+    const shippingPrice = 50.00;
 
+    // Render cart items
     function renderCart() {
       cartItemsContainer.innerHTML = "";
+      
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+          <div class="text-center py-8 bg-white rounded-lg shadow">
+            <p class="text-gray-500">Your cart is empty.</p>
+            <a href="shop.html" class="inline-block mt-4 text-pink-600 hover:text-pink-700 font-semibold">
+              Continue Shopping
+            </a>
+          </div>
+        `;
+        return;
+      }
+      
       cart.forEach((item, index) => {
         const itemDiv = document.createElement("div");
-        itemDiv.className = "flex justify-between items-center p-3 border rounded bg-white shadow-sm";
+        itemDiv.className = "flex justify-between items-center p-4 border rounded bg-white shadow-sm";
         itemDiv.innerHTML = `
-          <div>
-            <p class="font-semibold">${item.name}</p>
-            <p class="text-pink-600">R${item.price.toFixed(2)}</p>
+          <div class="flex items-center">
+            <div class="w-16 h-16 bg-gray-200 rounded-md mr-4 flex items-center justify-center">
+              ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover rounded-md">` : ''}
+            </div>
+            <div>
+              <p class="font-semibold">${item.name}</p>
+              <p class="text-pink-600">R${item.price.toFixed(2)}</p>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <label class="text-sm">Qty:</label>
+          <div class="flex items-center gap-3">
+            <label class="text-sm text-gray-600">Qty:</label>
             <input type="number" min="1" value="${item.quantity || 1}" data-index="${index}" 
               class="quantity-input w-16 border rounded px-2 py-1 focus:ring-2 focus:ring-pink-500">
-            <button data-index="${index}" class="remove-btn text-red-600 hover:text-red-800 text-sm font-semibold">Remove</button>
+            <button data-index="${index}" class="remove-btn text-red-600 hover:text-red-800 text-sm font-semibold">
+              Remove
+            </button>
           </div>
         `;
         cartItemsContainer.appendChild(itemDiv);
@@ -124,18 +232,24 @@
       addListeners();
     }
 
+    // Update cart totals
     function updateTotals() {
+      let subtotal = 0;
       let totalItems = 0;
-      let totalPrice = 0;
+      
       cart.forEach(item => {
         totalItems += item.quantity || 1;
-        totalPrice += (item.price || 0) * (item.quantity || 1);
+        subtotal += (item.price || 0) * (item.quantity || 1);
       });
-      totalItemsEl.textContent = totalItems;
-      totalPriceEl.textContent = `R${totalPrice.toFixed(2)}`;
+      
+      const total = subtotal + shippingPrice;
+      
+      subtotalPriceEl.textContent = `R${subtotal.toFixed(2)}`;
+      totalPriceEl.textContent = `R${total.toFixed(2)}`;
       cartCountEl.textContent = totalItems;
     }
 
+    // Add event listeners to cart items
     function addListeners() {
       const quantityInputs = document.querySelectorAll(".quantity-input");
       quantityInputs.forEach(input => {
@@ -148,6 +262,7 @@
           updateTotals();
         });
       });
+      
       const removeBtns = document.querySelectorAll(".remove-btn");
       removeBtns.forEach(btn => {
         btn.addEventListener("click", (e) => {
@@ -169,6 +284,71 @@
       e.target.value = formatted;
     });
 
+    // Expiry date formatting
+    const expiryInput = document.getElementById("expiry");
+    expiryInput.addEventListener("input", (e) => {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+      }
+      e.target.value = value;
+    });
+
+    // Form submission handler
+    checkoutForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Basic form validation
+      const requiredFields = checkoutForm.querySelectorAll("[required]");
+      let valid = true;
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add("border-red-500");
+          valid = false;
+        } else {
+          field.classList.remove("border-red-500");
+        }
+      });
+      
+      if (!valid) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+      
+   
+      
+      // Show loading overlay
+      loadingOverlay.style.display = "flex";
+      
+      // Save order data to sessionStorage for the confirmation page
+      const orderData = {
+        items: cart,
+        customer: {
+          name: document.getElementById("fullName").value,
+          email: document.getElementById("email").value,
+          address: document.getElementById("address").value,
+          city: document.getElementById("city").value,
+          postal: document.getElementById("postal").value,
+          phone: document.getElementById("phone").value
+        },
+        orderDate: new Date().toISOString(),
+        orderId: "ZPS-" + Math.floor(Math.random() * 1000000).toString().padStart(6, '0')
+      };
+      
+      sessionStorage.setItem("lastOrder", JSON.stringify(orderData));
+      
+      // Simulate processing delay
+      setTimeout(() => {
+        // Clear cart after successful order
+        localStorage.removeItem("cart");
+        
+        // Redirect to confirmation page
+        window.location.href = "order-confirmation.html";
+      }, 1500);
+    });
+
+    // Initialize page
     renderCart();
   </script>
 </body>
