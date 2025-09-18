@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Placed - My Perfume Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Header / Navbar -->
+  <header class="shadow-md sticky top-0 bg-white z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold text-pink-600">My Perfume Shop</h1>
+      <nav class="flex space-x-6 items-center">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="relative">🛒 
+          <span id="cart-count" class="absolute -top-2 -right-3 bg-pink-600 text-white text-xs px-1 rounded-full">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Order Confirmation Section -->
+  <section class="max-w-3xl mx-auto py-16 px-4 text-center">
+    <div class="bg-pink-50 p-12 rounded-lg shadow-md">
+      <h2 class="text-5xl font-bold text-pink-600 mb-6">Thank You!</h2>
+      <p class="text-lg mb-6">Your order has been successfully placed. 🎉</p>
+      <p class="mb-8">You will receive an email confirmation shortly with your order details.</p>
+
+      <!-- Order Summary -->
+      <div id="order-summary" class="bg-white p-6 rounded-lg shadow-md mb-6 text-left">
+        <h3 class="text-2xl font-semibold mb-4">Order Summary</h3>
+        <div id="order-items" class="space-y-3"></div>
+        <div class="mt-4 font-semibold text-lg text-right">
+          Total: <span id="order-total">R0.00</span>
+        </div>
+      </div>
+
+      <a href="shop.html" class="bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition">Continue Shopping</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-200 py-6 text-center">
+    <p>&copy; 2025 My Perfume Shop | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const orderItemsContainer = document.getElementById("order-items");
+    const orderTotalEl = document.getElementById("order-total");
+    const cartCountEl = document.getElementById("cart-count");
+
+    let totalPrice = 0;
+
+    if(cart.length > 0){
+      cart.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "flex justify-between items-center border-b pb-2";
+        itemDiv.innerHTML = `
+          <span>${item.name} x ${item.quantity || 1}</span>
+          <span>R${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</span>
+        `;
+        orderItemsContainer.appendChild(itemDiv);
+
+        totalPrice += (item.price || 0) * (item.quantity || 1);
+      });
+    } else {
+      orderItemsContainer.innerHTML = "<p class='text-gray-500'>No items found in your order.</p>";
+    }
+
+    orderTotalEl.textContent = `R${totalPrice.toFixed(2)}`;
+
+    // Clear cart after displaying summary
+    localStorage.removeItem("cart");
+    cartCountEl.textContent = 0;
+  </script>
+
+</body>
+</html>
